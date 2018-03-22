@@ -15,11 +15,13 @@ module.exports = {
     );
     zip.file(
       'desktop-screenshot.png',
-      fs.readFileSync(path.join(__dirname, 'desktop-screenshot.png'))
+      fs.readFileSync(
+        path.join(__dirname, 'screenshots/desktop-screenshot.png')
+      )
     );
     zip.file(
       'mobile-screenshot.png',
-      fs.readFileSync(path.join(__dirname, 'mobile-screenshot.png'))
+      fs.readFileSync(path.join(__dirname, 'screenshots/mobile-screenshot.png'))
     );
 
     const data = zip.generate({ base64: false, compression: 'DEFLATE' });

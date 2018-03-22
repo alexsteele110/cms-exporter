@@ -2,6 +2,7 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 const cheerio = require('cheerio');
 const request = require('request');
+const util = require('util');
 
 function parseHTML(html) {
   const $ = cheerio.load(html);
@@ -30,11 +31,11 @@ module.exports = {
       () => document.querySelector('div.content').innerHTML
     );
 
-    parseHTML(html);
+    const writeFile = util.promisify(fs.writeFile);
 
-    fs.appendFile('content.html', html, function(err) {
-      if (err) throw err;
-      console.log('Saved!');
-    });
+    const htmlFile = await writeFile('content.html', html);
+
+
+    parseHTML(html);
   }
 };
