@@ -9,6 +9,7 @@ module.exports = {
       waitUntil: 'networkidle2'
     });
 
+    
     await page.setViewport({ width: 1200, height: 1200 });
     await page.screenshot({ path: 'screenshots/desktop-screenshot.png', fullPage: true });
 
