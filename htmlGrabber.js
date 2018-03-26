@@ -13,8 +13,9 @@ function parseHTML(html) {
   });
 
   function downloadImages(imgURL) {
-    const url = `https://hardcore-volhard-1376cc.netlify.com${imgURL}`;
+    const url = `https://hungry-hodgkin-04abc7.netlify.com${imgURL}`;
     const fileName = imgURL.slice(8);
+    console.log(fileName);
 
     request(url).pipe(fs.createWriteStream(`images/${fileName}`));
   }
@@ -34,7 +35,6 @@ module.exports = {
     const writeFile = util.promisify(fs.writeFile);
 
     const htmlFile = await writeFile('content.html', html);
-
 
     parseHTML(html);
   }

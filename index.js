@@ -8,7 +8,7 @@ const { createDirsIfNotExist, deleteZip } = require('./utils');
 
 app.get('/api/export/:slug', async (req, res) => {
   const { slug } = req.params;
-  const url = `https://hardcore-volhard-1376cc.netlify.com/discover/${slug}`;
+  const url = `https://hungry-hodgkin-04abc7.netlify.com/discover/${slug}`;
   const directories = ['images'];
 
   console.log('screenshot called');
@@ -22,8 +22,8 @@ app.get('/api/export/:slug', async (req, res) => {
 
   const file = `${__dirname}/${slug}.zip`;
   res.download(file);
-  setTimeout(deleteZip(file), 5000);
-  setTimeout(deleteZip(directories), 5000);
+  // setTimeout(deleteZip(file), 5000);
+  // setTimeout(deleteZip(directories), 5000);
 });
 
 const PORT = process.env.PORT || 3000;
