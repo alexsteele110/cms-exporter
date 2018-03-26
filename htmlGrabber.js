@@ -5,19 +5,27 @@ const request = require('request');
 const util = require('util');
 
 function parseHTML(html) {
-  const $ = cheerio.load(html);
+  return new Promise(resolve => {
+    const $ = cheerio.load(html);
 
-  $('img').each(function(i, ele) {
-    const imgURL = $(this).attr('src');
-    downloadImages(imgURL);
+    $('img').each(function(i, ele) {
+      const imgURL = $(this).attr('src');
+      downloadImages(imgURL).then(resolve);
+    });
   });
 
   function downloadImages(imgURL) {
-    const url = `https://hungry-hodgkin-04abc7.netlify.com${imgURL}`;
-    const fileName = imgURL.slice(8);
-    console.log(fileName);
+    return new Promise(resolve => {
+      const url = `https://hungry-hodgkin-04abc7.netlify.com${imgURL}`;
+      const fileName = imgURL.slice(8);
 
-    request(url).pipe(fs.createWriteStream(`images/${fileName}`));
+      const imageStream = request(url).pipe(
+        fs.createWriteStream(`images/${fileName}`)
+      );
+      imageStream.on('finish', function() {
+        resolve();
+      });
+    });
   }
 }
 
@@ -36,6 +44,6 @@ module.exports = {
 
     const htmlFile = await writeFile('content.html', html);
 
-    parseHTML(html);
+    await parseHTML(html);
   }
 };
